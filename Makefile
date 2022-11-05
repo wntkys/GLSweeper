@@ -1,10 +1,10 @@
 includes := -I"C:/Program Files (x86)/gl3w/include/gl3w" -I"C:/Program Files (x86)/cglm/include" -I"C:/Program Files (x86)/GLFW/include"
-sources := "C:/Program Files (x86)/gl3w/share/gl3w/gl3w.c"
-libs := "C:/Program Files (x86)/GLFW/lib" -lglfw3 -lopengl32 -lkernel32 -luser32 -lgdi32
+sources := "C:/Program Files (x86)/gl3w/share/gl3w/gl3w.c" "mineMap/*.c" "common/*.c" "texture/*.c"
+libs := -L"C:/Program Files (x86)/GLFW/lib" -lglfw3 -lopengl32 -lkernel32 -luser32 -lgdi32
 
 
 debug: 
-	gcc main.c $(sources) $(includes) -L$(libs) -O2 -s -o main.exe
+	gcc main.c $(sources) $(includes) $(libs) -O2 -s -o main.exe
 	./main.exe
 
 release:

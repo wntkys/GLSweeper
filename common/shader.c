@@ -1,12 +1,12 @@
-#pragma once
-#include <GL/gl3w.h>
-#include <stdio.h>
+#include "shader.h"
+
 const char *vertexShaderSource = 
     "#version 330 core\n"
     "layout (location = 0) in vec2 aPos;\n"
-    "layout (location = 1) in vec3 aColor;\n"
+    "layout (location = 1) in vec2 aTexCoord;\n"
     "uniform float aspectRatio;\n"
     "uniform float cellSize;\n"
+    "out vec2 texCoord;\n"
     "out vec3 fColor;\n"
     "uniform vec2 offsets[1024]; \n"
     "void main()\n"
@@ -14,7 +14,7 @@ const char *vertexShaderSource =
     "    vec2 pos = aPos * cellSize + offsets[gl_InstanceID];\n"
     "    pos.x /= aspectRatio;\n"
     "    gl_Position = vec4(pos, 0.0, 1.0);\n"
-    "    fColor = aColor;\n"
+    "    texCoord = aTexCoord;\n"
     "}";
 
 
@@ -22,9 +22,11 @@ const char *fragmentShaderSource =
     "#version 330 core\n"
     "out vec4 FragColor;\n"
     "in vec3 fColor;\n"
+    "in vec2 texCoord;\n"
+    "uniform sampler2D tex;"
     "void main()\n"
     "{\n"
-    "    FragColor = vec4(fColor, 1.0);\n"
+    "    FragColor = texture(tex, texCoord);\n"
     "}";
 
 GLuint compileShader(const char* prog, GLenum shaderType) {

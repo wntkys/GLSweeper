@@ -4,6 +4,11 @@
         "minemap.h": "c",
         "string.h": "c",
         "gl3w.h": "c",
-        "windows.h": "c"
+        "windows.h": "c",
+        "globals.h": "c",
+        "lineprogramm.h": "c",
+        "math.h": "c",
+        "texture.h": "c",
+        "textureprogram.h": "c"
     }
 }

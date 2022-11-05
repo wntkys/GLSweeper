@@ -3,18 +3,13 @@
 #include <GL/gl3w.h>
 #include <GLFW/glfw3.h>
 
-#include "include/globals.h"
-#include "include/mineMap.h"
-
-#pragma comment( lib, "user32" )
-#pragma comment( lib, "kernel32" )
-#pragma comment( lib, "gdi32" )
-#pragma comment( lib, "opengl32" )
-#pragma comment( lib, "libglfw3.a" )
+#include "common/globals.h"
+#include "mineMap/mineMap.h"
+#include "texture/textureProgram.h"
 
 static int width = 600, height = 600;
 
-MineMap m;
+MineMap_t m;
 
 static void display(GLFWwindow *window)
 {
@@ -33,7 +28,7 @@ static void reshape(GLFWwindow *window, int w, int h)
 	glClearDepth(1.0);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
-	_Globals.aspectRatio = ( float ) width / height; 
+	G_Globals.aspectRatio = ( float ) width / height; 
 
 }
 
@@ -53,18 +48,38 @@ int main(int argc, char **argv)
 
 	glfwSetFramebufferSizeCallback(window, reshape);
 	glfwSetWindowRefreshCallback(window, display);
-
+	
 	glfwMakeContextCurrent(window);
 
-	if (gl3wInit()) {
+	if ( gl3wInit() ) {
 		fprintf(stderr, "failed to initialize OpenGL\n");
 		return -1;
 	}
-	if (!gl3wIsSupported(3, 2)) {
+	if ( !gl3wIsSupported( 3, 2 ) ) {
 		fprintf(stderr, "OpenGL 3.2 not supported\n");
 		return -1;
 	}
-    MineMap_renderPrepare( &m );
+
+	Texture_t t;
+	Texture_init( 16, 16, &t );
+
+	TextureProg_t tP;
+	tP.dataAndCommands = malloc(700);
+	DataForLine_t d4l;
+	d4l.x0 = 0;
+	d4l.x1 = 16;
+	d4l.y0 = 0;
+	d4l.y1 = 16;
+	d4l.rgba = 0xffff00ff;
+
+	*tP.dataAndCommands = 1;
+	memcpy( tP.dataAndCommands+1, &d4l, sizeof( DataForLine_t ) );
+	tP.dataAndCommands[ sizeof( DataForLine_t ) + 1 ] = 0;
+	TextureProg_run( &tP, &t );
+
+    MineMap_renderPrepare( &m, &t );
+
+
 	printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION),
 	       glGetString(GL_SHADING_LANGUAGE_VERSION));
 
@@ -72,7 +87,7 @@ int main(int argc, char **argv)
 		display(window);
 		glfwPollEvents();
 	}
-
+	
 	glfwTerminate();
 	return 0;
 }

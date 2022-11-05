@@ -1,0 +1,1 @@
+## Global variables : G_ + <name> in PascalCase
