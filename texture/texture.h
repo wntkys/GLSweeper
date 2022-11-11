@@ -4,7 +4,7 @@
 #include <GL/gl3w.h>
 
 typedef struct Texture_s {
-    uint64_t* data;
+    uint32_t* data;
     uint16_t sizeX, sizeY;
 } Texture_t;
 

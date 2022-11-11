@@ -4,7 +4,7 @@ libs := -L"C:/Program Files (x86)/GLFW/lib" -lglfw3 -lopengl32 -lkernel32 -luser
 
 
 debug: 
-	gcc main.c $(sources) $(includes) $(libs) -O2 -s -o main.exe
+	gcc main.c $(sources) $(includes) $(libs) -Os -s -flto -o main.exe
 	./main.exe
 
 release:

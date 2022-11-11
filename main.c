@@ -65,16 +65,16 @@ int main(int argc, char **argv)
 
 	TextureProg_t tP;
 	tP.dataAndCommands = malloc(700);
-	DataForLine_t d4l;
-	d4l.x0 = 0;
-	d4l.x1 = 16;
-	d4l.y0 = 0;
-	d4l.y1 = 16;
-	d4l.rgba = 0xffff00ff;
+	DataForSquare_t d4l;
+	d4l.x0 = 1;
+	d4l.x1 = 15;
+	d4l.y0 = 1;
+	d4l.y1 = 15;
+	d4l.rgba = 0xff11ffff;
 
-	*tP.dataAndCommands = 1;
-	memcpy( tP.dataAndCommands+1, &d4l, sizeof( DataForLine_t ) );
-	tP.dataAndCommands[ sizeof( DataForLine_t ) + 1 ] = 0;
+	*tP.dataAndCommands = 2;
+	memcpy( tP.dataAndCommands + 1, &d4l, sizeof( DataForSquare_t ) );
+	*( tP.dataAndCommands + sizeof( DataForSquare_t ) + 1 ) = 0;
 	TextureProg_run( &tP, &t );
 
     MineMap_renderPrepare( &m, &t );

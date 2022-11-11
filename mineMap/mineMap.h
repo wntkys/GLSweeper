@@ -1,4 +1,5 @@
 #pragma once
+
 #include <stdbool.h>
 #include <inttypes.h>
 #include <cglm/cglm.h>

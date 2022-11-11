@@ -2,11 +2,12 @@
 
 #include <math.h>
 #include <inttypes.h>
+#include <GL/gl3w.h>
 
 #include "texture.h"
 
 typedef struct DataForLine_s {
-    uint64_t rgba;
+    uint32_t rgba;
     uint_fast16_t x0, y0, x1, y1;
 } DataForLine_t;
 

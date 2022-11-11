@@ -3,8 +3,8 @@
 void Texture_init( uint16_t sizeX, uint16_t sizeY, Texture_t* out ) {
     out->sizeY = sizeY;
     out->sizeX = sizeX;
-    out->data = ( uint64_t* )malloc( sizeX * sizeY * sizeof( uint64_t ) );
-    memset( out->data, 0, sizeY * sizeX * sizeof(uint64_t) );
+    out->data = ( uint32_t* )malloc( sizeX * sizeY * sizeof( uint32_t ) );
+    memset( out->data, 0, sizeY * sizeX * sizeof(uint32_t) );
 }
 
 void Texture_free( Texture_t* in ) {

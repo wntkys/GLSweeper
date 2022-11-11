@@ -26,7 +26,10 @@ const char *fragmentShaderSource =
     "uniform sampler2D tex;"
     "void main()\n"
     "{\n"
-    "    FragColor = texture(tex, texCoord);\n"
+    "   vec4 texColor = texture(tex, texCoord);\n"
+    //"   if(texColor.a < 0.5)\n"
+    //"        discard;\n"
+    "   FragColor = texColor;\n"
     "}";
 
 GLuint compileShader(const char* prog, GLenum shaderType) {

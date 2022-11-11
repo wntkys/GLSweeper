@@ -2,12 +2,12 @@
 
  float quadVertices[] = {
     // координаты  // цвета
-    -0.8f,  0.8f,  0.0f, 1.0f,
-     0.8f, -0.8f,  1.0f, 0.0f,
-    -0.8f, -0.8f,  0.0f, 0.0f,
-    -0.8f,  0.8f,  0.0f, 1.0f,
-     0.8f, -0.8f,  1.0f, 0.0f,   
-     0.8f,  0.8f,  1.0f, 1.0f
+    -1.0f,  1.0f,  0.0f, 1.0f,
+     1.0f, -1.0f,  1.0f, 0.0f,
+    -1.0f, -1.0f,  0.0f, 0.0f,
+    -1.0f,  1.0f,  0.0f, 1.0f,
+     1.0f, -1.0f,  1.0f, 0.0f,   
+     1.0f,  1.0f,  1.0f, 1.0f
 };
 
 
@@ -36,8 +36,8 @@ void MineMap_renderPrepare( MineMap_t* m, Texture_t* t ) {
         GL_ARRAY_BUFFER, sizeof(quadVertices),
         quadVertices, GL_STATIC_DRAW
     );
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof( GLfloat ), 0 );
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof( GLfloat ), ( void* ) ( 2 * sizeof( GLfloat ) ) );
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof( GLfloat ), 0 ); // pos
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof( GLfloat ), ( void* ) ( 2 * sizeof( GLfloat ) ) ); // textureCoords
     glEnableVertexAttribArray(0); 
     glEnableVertexAttribArray(1);
 }
@@ -54,7 +54,7 @@ void MineMap_render(MineMap_t* m, vec4 pos) {
     glUseProgram( m->prog );
     glProgramUniform2fv( m->prog, glGetUniformLocation( m->prog, "offsets" ), m->sizeX * m->sizeY, ( GLfloat* )&shifts[0] );
     glProgramUniform1f( m->prog, glGetUniformLocation( m->prog, "aspectRatio" ), G_Globals.aspectRatio );
-    glProgramUniform1f( m->prog, glGetUniformLocation( m->prog, "cellSize" ), 0.049f );
+    glProgramUniform1f( m->prog, glGetUniformLocation( m->prog, "cellSize" ), 0.05f );
     //finaly render instanced
     glBindVertexArray( m->VAO );
     glDrawArraysInstanced(GL_TRIANGLES, 0, 12, m->sizeX * m->sizeY);   

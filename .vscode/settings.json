@@ -9,6 +9,9 @@
         "lineprogramm.h": "c",
         "math.h": "c",
         "texture.h": "c",
-        "textureprogram.h": "c"
+        "textureprogram.h": "c",
+        "stdio.h": "c",
+        "glcorearb.h": "c",
+        "cglm.h": "c"
     }
 }

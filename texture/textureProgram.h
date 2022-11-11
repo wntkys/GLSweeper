@@ -5,6 +5,8 @@
 #include "texture.h"
 #include "lineProgramm.h"
 
+#include "squareProgramm.h"
+
 typedef struct TextureProg_s {
     char* dataAndCommands;
     uint8_t length;
